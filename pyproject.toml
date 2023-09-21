@@ -2,7 +2,7 @@
 name = "self-healing-visualizer"
 version = "0.1.0"
 description = ""
-authors = ["Amanda Melo <amanda.melocontractor@modec.com>"]
+authors = ["Amanda Melo <ammelo@id.uff.br>", "Bruno Rodrigues <brunoarmm@id.uff.br>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
