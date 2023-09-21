@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "self-healing-visualizer"
+version = "0.1.0"
+description = ""
+authors = ["Amanda Melo <amanda.melocontractor@modec.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^0.21.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+black = ">=21.12b0"
+pytest = ">=6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
