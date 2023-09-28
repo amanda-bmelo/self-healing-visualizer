@@ -24,13 +24,12 @@ for line in matrix:
     x = 0
     new_line = []
     for element in line:
-        new_line.append(
+        ui_matrix.append(
             ui[type(element)](element, x*x_spacing, y*y_spacing)
         )
         if isinstance(element, Wire):
             element.elements = [matrix[y][x-1], matrix[y][x+1]]
         x+=1
-    ui_matrix.append(new_line)
     y+=1
 matrix[1][2].elements.append(matrix[0][2])
 
@@ -41,10 +40,7 @@ mui = MainUI(
     [subt]
 )
 
-[print(x) for x in ui_matrix]
-
 while(1):
     mui.run()
-    for line in subt.elements:
-        for e in line:
-            e.attached_element.state = [e.attached_element.state, not e.attached_element.state][rng(0,30) == 0]
+    for e in subt.elements:
+        e.attached_element.state = [e.attached_element.state, not e.attached_element.state][rng(0,30) == 0]
