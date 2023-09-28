@@ -10,22 +10,24 @@ class ReligatorSquare:
         s = Surface((size, size))
         s.fill(ReligatorSquare.state_colors[state])
         return s
+    
 
 class ReligatorUI(BaseUI):
     images = [
         ReligatorSquare.surface(30, 0),
         ReligatorSquare.surface(30, 1)
     ]
-    def __init__(self, x: float, y: float, religator: Religator):
+    def __init__(self, religator: Religator, x: float, y: float):
         super().__init__(x, y)
-        self.religator = religator
+        self.attached_element = religator
+        religator.UI = self
 
     @property
     def state(self):
-        return self.religator.state
+        return self.attached_element.state
 
     def __repr__(self) -> str:
-        return f"<ReligatorUI[{self.state}]>"
+        return f"<ReligatorUI[{self.state}]: ({self.x}, {self.y})>"
 
     def surface(self) -> Surface:
         return ReligatorUI.images[self.state]

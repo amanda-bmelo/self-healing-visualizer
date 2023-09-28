@@ -1,15 +1,15 @@
 
-class Religator:
-    """Class to represent smart religators"""
+class Wire:
+    """Class to represent connection between devices"""
 
     def __init__(
-            self, state: bool, max_tension: float, max_frequency: float
+            self, state: bool, max_tension: float, max_frequency: float, elements: list
     ) -> None:
-        # TODO what determinates an fault??
         self.state = state
         self.fault_detected: bool = False
         self.max_tension = max_tension
         self.max_frequency = max_frequency
+        self.elements = elements
 
         self.UI = None
 

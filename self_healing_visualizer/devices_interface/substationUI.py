@@ -10,4 +10,4 @@ class SubstationUI(BaseUI):
     def draw(self, source_surface: Surface, dx=0, dy=0):
         for element_row in self.elements:
             for element in element_row:
-                element.draw(source_surface, dx, dy)
+                element.draw(source_surface, self.x + dx, self.y + dy)
