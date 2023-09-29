@@ -4,17 +4,24 @@ import sys
 
 
 class MainUI():
+    """Main class to hangle window and other pygame responsabilites"""
     def __init__(self, height: int, width: int, elements: list[BaseUI]) -> None:
         pygame.init()
         pygame.key.set_repeat(200, 25)
-        self.height = height
-        self.width = width
 
         self.clock = pygame.time.Clock()
         self.window: pygame.Surface = pygame.display.set_mode((height,width),pygame.RESIZABLE)
 
         self.elements = elements
 
+    @property
+    def width(self):
+        return self.window.get_width()
+
+    @property
+    def height(self):
+        return self.window.get_height()
+    
     def run(self, **kw):
         self.window.fill((225, 225, 225))
         delta = self.clock.tick(120) / 1000

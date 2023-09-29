@@ -5,6 +5,7 @@ from .base import BaseUI
 
 
 class SubstationUI(BaseUI):
+    """Mother class to Handle group logic for drawing"""
     def __init__(self, x: float, y: float, elements: list[list[BaseUI]]):
         super().__init__(x, y)
         _elements = []

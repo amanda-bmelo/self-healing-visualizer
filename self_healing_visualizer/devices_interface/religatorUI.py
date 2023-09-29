@@ -4,6 +4,7 @@ from .base import BaseUI
 
 
 class ReligatorSquare:
+    """Simple utility class to help create the base Religator image"""
     state_colors = [(90,10,20), (10,80,30)]
     @classmethod
     def surface(cls, size: int, state: int):
@@ -13,6 +14,7 @@ class ReligatorSquare:
     
 
 class ReligatorUI(BaseUI):
+    """Class to present Religator to the interface. Uses `Religator.state` to define which image to draw"""
     images = [
         ReligatorSquare.surface(30, 0),
         ReligatorSquare.surface(30, 1)
