@@ -33,5 +33,7 @@ class MainUI():
         keys = pygame.key.get_pressed()
 
         for e in self.elements:
+            e.input(keys)
+        for e in self.elements:
             e.draw(self.window, self.width/2, self.height/2)
         pygame.display.update()

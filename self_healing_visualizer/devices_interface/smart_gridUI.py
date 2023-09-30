@@ -1,21 +1,23 @@
 from pygame import Surface
-
+from self_healing_visualizer.case_study1 import CaseStudy
 from self_healing_visualizer.devices_interface.wireUI import WireUI
 from .base import BaseUI
 
 
-class SubstationUI(BaseUI):
+class SmartGridUI(BaseUI):
     """Mother class to Handle group logic for drawing"""
-    def __init__(self, x: float, y: float, elements: list[list[BaseUI]]):
+    def __init__(self, x: float, y: float, case_studies: list[CaseStudy]):
         super().__init__(x, y)
-        _elements = []
-        for e in elements:
-            if isinstance(e, WireUI):
-                _elements.insert(0, e)
-            else:
-                _elements.append(e)
-        print(_elements)
-        self.elements = _elements
+
+        self.case_studies = case_studies
+        self.index = 0
+
+    @property
+    def elements(self):
+        return self.case_studies[self.index]
+
+    def input(self, keys):
+        return
 
     def draw(self, source_surface: Surface, dx=0, dy=0):
         for element in self.elements:
