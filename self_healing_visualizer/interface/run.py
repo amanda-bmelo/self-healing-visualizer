@@ -10,3 +10,8 @@ def run_UI(sub_ts: list["CaseStudy"]):
 
     while(1):
         mui.run()
+
+
+if __name__ == "__main__":
+    cs = CaseStudy()
+    run_UI([cs])

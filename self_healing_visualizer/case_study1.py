@@ -2,7 +2,7 @@ from devices.charge import Charge
 from devices.circuit_breaker import CircuitBreaker
 from devices.religator import Religator
 from devices.wire import Wire
-from interface.run import run_UI
+from self_healing_visualizer.interface.run import run_UI
 
 
 class CaseStudy:
