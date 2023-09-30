@@ -2,45 +2,38 @@ from self_healing_visualizer.devices_interface.mainUI import MainUI
 from self_healing_visualizer.devices_interface.substationUI import SubstationUI
 from self_healing_visualizer.devices_interface.religatorUI import ReligatorUI, Religator
 from self_healing_visualizer.devices_interface.wireUI import WireUI, Wire
+from self_healing_visualizer.devices.basic_device import GenericDevice
 from random import randint as rng
 
+def generate_UI(matrix: list[GenericDevice]) -> SubstationUI:
+    ui = {
+        Religator: ReligatorUI,
+        Wire: WireUI
+    }
+    y_spacing = 60
+    x_spacing = 60
+    y = 0
 
-ui = {
-    Religator: ReligatorUI,
-    Wire: WireUI
-}
-y_spacing = 60
-x_spacing = 60
-y = 0
 
-matrix = [
-    [Religator(True, 10.0, 10.0), Wire(True, 10.0, 10.0, []), Religator(True, 10.0, 10.0), Wire(True, 10.0, 10.0, []), Religator(True, 10.0, 10.0)],
-    [Religator(True, 10.0, 10.0), Wire(True, 10.0, 10.0, []), Wire(True, 10.0, 10.0, []), Wire(True, 10.0, 10.0, []), Religator(True, 10.0, 10.0)],
-]
+    ui_elements = []
+    y = 0
+    for line in matrix:
+        x = 0
+        for element in line:
+            ui_elements.append(
+                ui[type(element)](element, x*x_spacing, y*y_spacing)
+            )
+            x+=1
+        y+=1
+    matrix[1][2].elements.append(matrix[0][2])
 
-ui_matrix = []
-y = 0
-for line in matrix:
-    x = 0
-    new_line = []
-    for element in line:
-        ui_matrix.append(
-            ui[type(element)](element, x*x_spacing, y*y_spacing)
-        )
-        if isinstance(element, Wire):
-            element.elements = [matrix[y][x-1], matrix[y][x+1]]
-        x+=1
-    y+=1
-matrix[1][2].elements.append(matrix[0][2])
+    return SubstationUI(-200, 0, ui_elements)
 
-subt = SubstationUI(-200, 0, ui_matrix)
+def run_UI(sub_ts: list[SubstationUI]):
+    mui = MainUI(
+        600, 600,
+        sub_ts
+    )
 
-mui = MainUI(
-    600, 600,
-    [subt]
-)
-
-while(1):
-    mui.run()
-    for e in subt.elements:
-        e.attached_element.state = [e.attached_element.state, not e.attached_element.state][rng(0,30) == 0]
+    while(1):
+        mui.run()
