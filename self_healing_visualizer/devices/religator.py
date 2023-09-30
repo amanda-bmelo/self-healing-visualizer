@@ -1,5 +1,5 @@
 from self_healing_visualizer.devices.basic_device import GenericDevice
-from enums.religator_source_enum import SourceEnum
+from ..enums.religator_source_enum import SourceEnum
 from self_healing_visualizer.devices.wire import Wire
 
 

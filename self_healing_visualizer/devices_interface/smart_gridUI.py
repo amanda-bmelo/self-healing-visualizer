@@ -1,5 +1,5 @@
 from pygame import Surface
-from self_healing_visualizer.case_study1 import CaseStudy
+from case_study1 import CaseStudy
 from self_healing_visualizer.devices_interface.wireUI import WireUI
 from .base import BaseUI
 

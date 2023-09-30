@@ -1,1 +1,1 @@
-from religator_source_enum import *
+from .religator_source_enum import *

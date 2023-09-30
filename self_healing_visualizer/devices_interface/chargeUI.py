@@ -1,7 +1,7 @@
 from pygame import Surface, draw as py_draw
 from self_healing_visualizer.devices.charge import Charge
 from self_healing_visualizer.devices_interface.base import BaseUI
-
+from self_healing_visualizer.devices_interface.wireUI import WireUI
 
 class ChargeUI(WireUI):
     
