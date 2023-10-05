@@ -14,8 +14,8 @@ def generate_UI(matrix: list[list[GenericDevice]]) -> SmartGridUI:
         CircuitBreaker: CircuitBreakerUI,
         Charge: ChargeUI,
     }
-    y_spacing = 60
-    x_spacing = 60
+    y_spacing = 20
+    x_spacing = 20
     y = 0
 
 
@@ -24,10 +24,18 @@ def generate_UI(matrix: list[list[GenericDevice]]) -> SmartGridUI:
     for line in matrix:
         x = 0
         for element in line:
-            ui_elements.append(
-                ui[type(element)](element, x*x_spacing, y*y_spacing)
-            )
-            x+=1
-        y+=1
+            e = ui[type(element)](element, x, y)
+            if type(e) == WireUI:
+                ui_elements.insert(
+                    0, e
+                )
+            else:
+                ui_elements.append(
+                    e
+                )
+            s_w = e.surface()
+            s_w = s_w.get_width() if s_w != None else 0
+            x+=x_spacing + s_w
+        y+=y_spacing
 
     return SmartGridUI(-200, 0, ui_elements)

@@ -11,13 +11,15 @@ class MainUI():
 
         self.clock = pygame.time.Clock()
         self.window: pygame.Surface = pygame.display.set_mode((height,width),pygame.RESIZABLE)
+        pygame.display.set_caption("Smart grid")
+        pygame.display.set_icon(pygame.image.load("logo.png"))
 
         self.case_studies = case_studies
         self.index = 0
 
     @property
     def elements(self):
-        return self.case_studies[self.index].smart_grid_UI.elements
+        return [self.case_studies[self.index].smart_grid_UI]
 
     @property
     def width(self):
