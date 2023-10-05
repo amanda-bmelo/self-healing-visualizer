@@ -3,7 +3,6 @@ from self_healing_visualizer.devices.charge import Charge
 from self_healing_visualizer.devices_interface.base import BaseUI
 from self_healing_visualizer.devices_interface.wireUI import WireUI
 
-
 class ChargeUI(WireUI):
     
     def surface(self):
