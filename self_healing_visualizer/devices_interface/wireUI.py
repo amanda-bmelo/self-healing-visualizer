@@ -21,6 +21,6 @@ class WireUI(BaseUI):
     def draw(self, source_surface: Surface, dx=0, dy=0):
         s_pos = (self.x + dx, self.y + dy)
         color, width = WireUI.colors[self.state], WireUI.w[self.state]
-        for element in self.attached_element.elements:
+        for element in self.attached_element.connections:
             ui_element: BaseUI = element.UI
             py_draw.line(source_surface, color, s_pos, (ui_element.x + dx, ui_element.y + dy), width)

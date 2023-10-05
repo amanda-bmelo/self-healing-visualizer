@@ -5,14 +5,19 @@ import sys
 
 class MainUI():
     """Main class to hangle window and other pygame responsabilites"""
-    def __init__(self, height: int, width: int, elements: list[BaseUI]) -> None:
+    def __init__(self, height: int, width: int, case_studies: list) -> None:
         pygame.init()
         pygame.key.set_repeat(200, 25)
 
         self.clock = pygame.time.Clock()
         self.window: pygame.Surface = pygame.display.set_mode((height,width),pygame.RESIZABLE)
 
-        self.elements = elements
+        self.case_studies = case_studies
+        self.index = 0
+
+    @property
+    def elements(self):
+        return self.case_studies[self.index].smart_grid_UI.elements
 
     @property
     def width(self):
@@ -32,8 +37,8 @@ class MainUI():
                 sys.exit(0)
         keys = pygame.key.get_pressed()
 
-        for e in self.elements:
-            e.input(keys)
+        # for e in self.elements:
+        #     e.input(keys)
         for e in self.elements:
             e.draw(self.window, self.width/2, self.height/2)
         pygame.display.update()

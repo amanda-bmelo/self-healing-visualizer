@@ -1,8 +1,8 @@
-from devices.charge import Charge
-from devices.circuit_breaker import CircuitBreaker
-from devices.religator import Religator
-from devices.wire import Wire
-from self_healing_visualizer.interface.run import run_UI
+from self_healing_visualizer.devices.charge import Charge
+from self_healing_visualizer.devices.circuit_breaker import CircuitBreaker
+from self_healing_visualizer.devices.religator import Religator
+from self_healing_visualizer.devices.wire import Wire
+from self_healing_visualizer.interface.util import generate_UI
 
 
 class CaseStudy:
@@ -16,7 +16,7 @@ class CaseStudy:
             Wire(True), CircuitBreaker(True)]
         ]
 
-        self.smart_grid_UI = run_UI.generate_UI(self.matrix)
+        self.smart_grid_UI = generate_UI(self.matrix)
 
         self.faulty_wire = []
     
