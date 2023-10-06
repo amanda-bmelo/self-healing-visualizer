@@ -1,0 +1,36 @@
+from typing import Any
+
+
+class Scheduler:
+    def __init__(self, fn, *args, t=0, **kw) -> None:
+        self.fn = fn
+        self.args = args
+        self.kw = kw
+        self.t = t
+
+    def __call__(self) -> Any:
+        self.fn(*self.args, **self.kw)
+
+class GlobalClock:
+    t = 0
+    current_batch = []
+    next_batch = []
+
+    @classmethod
+    def roll_next_batch(cls):
+        cls.t += 1
+        nb = []
+        cb = []
+        for fn in cls.next_batch:
+            if fn.t <= cls.t:
+                cb.append(fn)
+            else:
+                nb.append(fn)
+        cls.current_batch = cb
+        cls.next_batch = nb
+        return cls.current_batch
+    
+    def schedule(fn, dt=0):
+        def _fn(*args, **kw):
+            GlobalClock.next_batch.append(Scheduler(fn, *args, t=GlobalClock.t + dt, **kw))
+        return _fn

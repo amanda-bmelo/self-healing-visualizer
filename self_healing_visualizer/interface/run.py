@@ -1,15 +1,35 @@
+from time import sleep
 from self_healing_visualizer.devices_interface.mainUI import MainUI
 from self_healing_visualizer.case_study1 import *
+from self_healing_visualizer.util.global_clock import GlobalClock
 
 
 def run_UI(sub_ts: list["CaseStudy"]):
     mui = MainUI(
-        600, 600,
+        1000, 600,
         sub_ts
     )
 
-    while(1):
+    fns = GlobalClock.roll_next_batch()
+    while(fns != [] or GlobalClock.next_batch != []):
+        for fn in fns:
+            fn()
+        fns = GlobalClock.roll_next_batch()
         mui.run()
+        sleep(0.5)
+    sub_ts[0].matrix[0][1].fault(None)
+    fns = GlobalClock.roll_next_batch()
+    sleep(0.2)
+    while(fns != [] or GlobalClock.next_batch != []):
+        for fn in fns:
+            fn()
+        fns = GlobalClock.roll_next_batch()
+        mui.run()
+        sleep(0.5)
+    sleep(3)
+    # while(1):
+    #     mui.run()
+        
 
 
 if __name__ == "__main__":

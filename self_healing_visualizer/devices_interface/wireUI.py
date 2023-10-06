@@ -4,8 +4,8 @@ from self_healing_visualizer.devices_interface.base import BaseUI
 
 
 class WireUI(BaseUI):
-    colors = [(80, 80, 10),(30, 30, 10),(70,20,30)]
-    w = [4, 2]
+    colors = [(30, 30, 10), (80, 80, 10),(70,20,30)]
+    w = [2, 4, 4]
     def __init__(self, wire: Wire, x: float, y: float) -> None:
         super().__init__(x, y)
         self.attached_element = wire
