@@ -15,7 +15,7 @@ class GeneratorCircle:
         return s
 
 class GeneratorUI(BaseUI):
-    image = GeneratorCircle.surface(30, 0)
+    image = GeneratorCircle.surface(50, 0)
 
     def __init__(self, generator: Generator, x: float, y: float) -> None:
         super().__init__(x, y)

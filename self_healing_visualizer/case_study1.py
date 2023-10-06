@@ -30,7 +30,7 @@ class CaseStudy:
 
         self.smart_grid_UI = generate_UI(self.matrix)
 
-        GlobalClock.next_batch.append(Scheduler(self.matrix[0][-2].observer, 1, 0, self.matrix[0][-1], t=GlobalClock.t + 10))
+        GlobalClock.next_batch.append(Scheduler(self.matrix[0][-2].observer, 1, 0, self.matrix[0][-1], t=GlobalClock.t + 9))
         self.matrix[0][1].observer(1, 0, self.matrix[0][0])
 
         self.faulty_wire = []
