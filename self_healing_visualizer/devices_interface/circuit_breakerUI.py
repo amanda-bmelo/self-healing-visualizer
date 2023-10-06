@@ -1,11 +1,12 @@
 from pygame import Surface
 from self_healing_visualizer.devices.circuit_breaker import CircuitBreaker
+from self_healing_visualizer.util.colors import MainColors
 from .base import BaseUI
 
 
 class CircuitBreakerSquare:
     """Simple utility class to help create the base CircuitBreaker image"""
-    state_colors = [(90,10,20), (10,80,30)]
+    state_colors = [MainColors.RED, MainColors.GREEN]
     @classmethod
     def surface(cls, size: int, state: int):
         s = Surface((size, size))

@@ -1,11 +1,12 @@
 from pygame import Surface
 from self_healing_visualizer.devices.religator import Religator
+from self_healing_visualizer.util.colors import MainColors
 from .base import BaseUI
 
 
 class ReligatorSquare:
     """Simple utility class to help create the base Religator image"""
-    state_colors = [(90,10,20), (10,80,30)]
+    state_colors = [MainColors.RED, MainColors.GREEN]
     @classmethod
     def surface(cls, size: int, state: int):
         s = Surface((size, size))

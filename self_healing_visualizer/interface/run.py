@@ -16,10 +16,9 @@ def run_UI(sub_ts: list["CaseStudy"]):
             fn()
         fns = GlobalClock.roll_next_batch()
         mui.run()
-        sleep(0.5)
     sub_ts[0].matrix[0][1].fault(None)
     fns = GlobalClock.roll_next_batch()
-    sleep(0.2)
+    sleep(0.4)
     while(fns != [] or GlobalClock.next_batch != []):
         for fn in fns:
             fn()
