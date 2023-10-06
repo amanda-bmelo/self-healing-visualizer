@@ -8,11 +8,13 @@ def generate_UI(matrix: list[list[GenericDevice]]) -> SmartGridUI:
     from self_healing_visualizer.devices_interface.wireUI import WireUI, Wire
     from self_healing_visualizer.devices_interface.circuit_breakerUI import CircuitBreaker, CircuitBreakerUI
     from self_healing_visualizer.devices_interface.chargeUI import Charge, ChargeUI
+    from self_healing_visualizer.devices_interface.generatorUI import GeneratorUI, Generator
     ui = {
         Religator: ReligatorUI,
         Wire: WireUI,
         CircuitBreaker: CircuitBreakerUI,
         Charge: ChargeUI,
+        Generator: GeneratorUI
     }
     y_spacing = 20
     x_spacing = 20

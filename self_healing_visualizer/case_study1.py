@@ -1,5 +1,6 @@
 from self_healing_visualizer.devices.charge import Charge
 from self_healing_visualizer.devices.circuit_breaker import CircuitBreaker
+from self_healing_visualizer.devices.generator import Generator
 from self_healing_visualizer.devices.religator import Religator
 from self_healing_visualizer.devices.wire import Wire
 from self_healing_visualizer.devices.basic_device import GenericDevice
@@ -14,11 +15,11 @@ class CaseStudy:
     
     def __init__(self) -> None:
         self.matrix: list[list[GenericDevice]] = [
-            [CircuitBreaker(StateEnum.CLOSED), Wire(WireStateEnum.NONE), Charge(WireStateEnum.NONE), 
+            [Generator(), Wire(WireStateEnum.NONE), CircuitBreaker(StateEnum.CLOSED), Wire(WireStateEnum.NONE), Charge(WireStateEnum.NONE), 
             Wire(WireStateEnum.NONE), Religator(StateEnum.CLOSED), Wire(WireStateEnum.NONE), Charge(WireStateEnum.NONE),
             Wire(WireStateEnum.NONE), Religator(StateEnum.CLOSED), Wire(WireStateEnum.NONE), Charge(WireStateEnum.NONE),
             Wire(WireStateEnum.NONE), Religator(StateEnum.OPEN),  Wire(WireStateEnum.NONE), Charge(WireStateEnum.NONE),
-            Wire(WireStateEnum.NONE), CircuitBreaker(StateEnum.CLOSED)]
+            Wire(WireStateEnum.NONE), CircuitBreaker(StateEnum.CLOSED), Wire(WireStateEnum.NONE), Generator()]
         ]
 
         self.matrix[0][0].connections = [None, self.matrix[0][1]]
@@ -29,7 +30,7 @@ class CaseStudy:
 
         self.smart_grid_UI = generate_UI(self.matrix)
 
-        GlobalClock.next_batch.append(Scheduler(self.matrix[0][-2].observer, 1, 0, self.matrix[0][-1], t=GlobalClock.t + 8))
+        GlobalClock.next_batch.append(Scheduler(self.matrix[0][-2].observer, 1, 0, self.matrix[0][-1], t=GlobalClock.t + 10))
         self.matrix[0][1].observer(1, 0, self.matrix[0][0])
 
         self.faulty_wire = []
