@@ -6,7 +6,7 @@ from self_healing_visualizer.util.global_clock import GlobalClock
 
 def run_UI(sub_ts: list["CaseStudy"]):
     mui = MainUI(
-        1000, 600,
+        800, 100,
         sub_ts
     )
 
@@ -16,7 +16,7 @@ def run_UI(sub_ts: list["CaseStudy"]):
             fn()
         fns = GlobalClock.roll_next_batch()
         mui.run()
-    sub_ts[0].matrix[0][1].fault(None)
+    sub_ts[0].matrix[0][3].fault(None)
     fns = GlobalClock.roll_next_batch()
     sleep(0.4)
     while(fns != [] or GlobalClock.next_batch != []):
@@ -24,10 +24,9 @@ def run_UI(sub_ts: list["CaseStudy"]):
             fn()
         fns = GlobalClock.roll_next_batch()
         mui.run()
-        sleep(0.5)
-    sleep(3)
-    # while(1):
-    #     mui.run()
+        sleep(0.3)
+    while(1):
+        mui.run()
         
 
 

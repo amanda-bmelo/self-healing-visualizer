@@ -27,8 +27,6 @@ class Religator(GenericDevice):
     def observer(self, energy: bool, fault: bool, source: Wire):
         """Function to update the current state"""
 
-        print(self.str(), ['no energy','energy'][energy], ['/ no fault','/ fault'][fault])
-
         was_updated = False
         direction = self.connections.index(source) + 1
         if fault:
