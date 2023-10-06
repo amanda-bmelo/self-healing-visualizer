@@ -10,10 +10,11 @@ class SmartGridUI(BaseUI):
         super().__init__(x, y)
 
         self.elements = elements
+        self.w = max([x.x for x in self.elements]) - min([x.x for x in self.elements]) + 25
 
     def input(self, keys):
         return
 
     def draw(self, source_surface: Surface, dx=0, dy=0):
         for element in self.elements:
-            element.draw(source_surface, self.x + dx, self.y + dy)
+            element.draw(source_surface, self.x + dx - self.w/2, self.y + dy)

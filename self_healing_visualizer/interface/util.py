@@ -40,4 +40,4 @@ def generate_UI(matrix: list[list[GenericDevice]]) -> SmartGridUI:
             x+=x_spacing + s_w
         y+=y_spacing
 
-    return SmartGridUI(-350, 0, ui_elements)
+    return SmartGridUI(0, 0, ui_elements)
