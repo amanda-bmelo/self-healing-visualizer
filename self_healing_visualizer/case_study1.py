@@ -33,12 +33,12 @@ class CaseStudy:
         GlobalClock.schedule(
             self.matrix[0][-2].observer,
             dt=0
-        )(1, 0, self.matrix[0][-1])
+        )(1, 0, self.matrix[0][-1], self.matrix[0][-1])
 
         GlobalClock.schedule(
             self.matrix[0][1].observer,
             dt=0
-        )(1, 0, self.matrix[0][0])
+        )(1, 0, self.matrix[0][0], self.matrix[0][0])
 
         self.faulty_wire = []
     
