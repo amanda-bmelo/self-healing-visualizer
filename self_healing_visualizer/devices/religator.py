@@ -16,6 +16,7 @@ class Religator(GenericDevice):
         self.state = state
         self.fault_detected = SourceEnum.NONE
         self.source = SourceEnum.NONE
+        self.generators = [None, None]
 
     def str(self) -> str:
         state = ['Closed', 'Open'][self.state]
@@ -24,8 +25,14 @@ class Religator(GenericDevice):
 
         return f"<Religator[{self.id}]: ({state}, {source}, {fault_detected})>"
     
-    def observer(self, energy: bool, fault: bool, source: Wire):
+    def observer(self, energy: bool, fault: bool, source: Wire, generator: GenericDevice=None):
         self._observer(energy, fault, source)
+        # if self.source != SourceEnum.BOTH and self.source != SourceEnum.NONE:
+        #     self.generator = generator
+        # else:
+        #     self.generator = None
+        direction = self.connections.index(source)
+        self.generators[direction] = generator
         if self.state == StateEnum.CLOSED:
             self.update_state()
         else:
@@ -61,32 +68,37 @@ class Religator(GenericDevice):
         """Function to propagate the state of the religator"""
 
         target = None
+        direction = None
         target1 = None
         target2 = None
         if self.state == StateEnum.CLOSED:
             energy, fault = (1, 0)
             if self.source == SourceEnum.RIGHT:
                 target = self.connections[SourceEnum.LEFT - 1]
+                direction = SourceEnum.RIGHT - 1
             elif self.source == SourceEnum.LEFT:
                 target = self.connections[SourceEnum.RIGHT - 1]
+                direction = SourceEnum.LEFT - 1
             elif self.source == SourceEnum.NONE:
                 energy, fault = (0, 0)
                 target1 = self.connections[SourceEnum.RIGHT - 1]
                 target2 = self.connections[SourceEnum.LEFT - 1]
                 if target1 != None:
-                    target1.observer(energy, fault, self)
+                    target1.observer(energy, fault, self, self.generators[SourceEnum.LEFT-1])
                 if target2 != None:
-                    target2.observer(energy, fault, self)
+                    target2.observer(energy, fault, self, self.generators[SourceEnum.RIGHT-1])
             else:
                 raise Exception(f"{self.str()} had state 0 when its enum source was set to both")
         else:
             energy, fault = (0, 0)
             if self.fault_detected == SourceEnum.RIGHT and not (self.source == SourceEnum.LEFT or self.source == SourceEnum.BOTH):
                 target = self.connections[SourceEnum.LEFT - 1]
+                direction = SourceEnum.RIGHT - 1
             elif self.fault_detected == SourceEnum.LEFT and  not (self.source == SourceEnum.RIGHT or self.source == SourceEnum.BOTH):
                 target = self.connections[SourceEnum.RIGHT - 1]
+                direction = SourceEnum.LEFT - 1
 
         if target != None:
-            target.observer(energy, fault, self)
+            target.observer(energy, fault, self, self.generators[direction])
 
         

@@ -16,11 +16,18 @@ class GeneratorCircle:
 
 class GeneratorUI(BaseUI):
     image = GeneratorCircle.surface(50, 0)
+    colors = {}
+    pre_made = [(251, 206, 177), (255, 191, 0), (253, 218, 13), (255, 255, 143), (223, 255, 0)]
+    pre_made = [(216, 191, 216), (230, 230, 250), (207, 159, 255), (112, 41, 99), (170, 51, 106)]
 
     def __init__(self, generator: Generator, x: float, y: float) -> None:
         super().__init__(x, y)
         self.attached_element = generator
         generator.UI = self
+
+        # x = len(GeneratorUI.colors) * 10 + 45
+        # GeneratorUI.colors[generator.id] = (x*3 % 256, x*10 % 256, x*19 % 256)
+        GeneratorUI.colors[generator.id] = GeneratorUI.pre_made[len(GeneratorUI.colors) % len(GeneratorUI.pre_made)]
 
     def surface(self) -> Surface:
         return GeneratorUI.image

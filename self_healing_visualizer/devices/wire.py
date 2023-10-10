@@ -11,19 +11,21 @@ class Wire(GenericDevice):
     ) -> None:
         super().__init__()
         self.state = state
+        self.generator = None
 
-    def observer(self, energy: bool, fault: bool, source: "GenericDevice"):
+    def observer(self, energy: bool, fault: bool, source: "GenericDevice", generator: "GenericDevice" = None):
         """Function to update the current state"""
         new_state = energy if not fault else StateEnum.FAULT
+        self.generator = generator
         if new_state != self.state:
             self.state = new_state
-            self.propagate(source)
+            self.propagate(source, generator)
 
     def fault(self, _from=None):
         self.state = StateEnum.FAULT
         self.propagate(_from)
 
-    def propagate(self, _except: GenericDevice):
+    def propagate(self, _except: GenericDevice, generator: GenericDevice = None):
         """Function to propagate the state of the wire"""
 
         if _except == None:
@@ -35,12 +37,12 @@ class Wire(GenericDevice):
         if self.state == StateEnum.NONE:
             for td in target_devices:
                 if td != None:
-                    td.observer(0, 0, self)
+                    td.observer(0, 0, self, generator=generator)
         elif self.state == StateEnum.ENERGY:
             for td in target_devices:
                 if td != None:
-                    td.observer(1, 0, self)
+                    td.observer(1, 0, self, generator=generator)
         elif self.state == StateEnum.FAULT:
             for td in target_devices:
                 if td != None:
-                    td.observer(0, 1, self)
+                    td.observer(0, 1, self, generator=generator)

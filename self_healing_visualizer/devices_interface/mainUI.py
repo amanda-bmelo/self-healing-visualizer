@@ -30,7 +30,7 @@ class MainUI():
         return self.window.get_height()
     
     def run(self, **kw):
-        self.window.fill((225, 225, 225))
+        self.window.fill((100,100,100))
         delta = self.clock.tick(120) / 1000
         events = pygame.event.get()
         for e in events:

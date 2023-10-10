@@ -17,7 +17,7 @@ class GenericDevice:
         self.UI = None ## Link between Interface and Logic classes
         self.connections = []
 
-    def observer(self, energy: bool, fault: bool, source: "GenericDevice"):
+    def observer(self, energy: bool, fault: bool, source: "GenericDevice", **kw):
         """Function to update the current state"""
         raise NotImplementedError()
 
@@ -26,7 +26,7 @@ class GenericDevice:
         raise NotImplementedError()
     
     # @GlobalClock.schedule
-    def propagate(self, _except: "GenericDevice"):
+    def propagate(self, _except: "GenericDevice", **kw):
         """Function to propagate the state of the device"""
         raise NotImplementedError()
     
