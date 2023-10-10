@@ -16,7 +16,7 @@ def generate_UI(matrix: list[list[GenericDevice]]) -> SmartGridUI:
         Charge: ChargeUI,
         Generator: GeneratorUI
     }
-    y_spacing = 20
+    y_spacing = 50
     x_spacing = 20
     y = 0
 

@@ -1,12 +1,12 @@
 from time import sleep
 from self_healing_visualizer.devices_interface.mainUI import MainUI
-from self_healing_visualizer.case_study1 import *
+from self_healing_visualizer.case_study2 import *
 from self_healing_visualizer.util.global_clock import GlobalClock
 
 
 def run_UI(sub_ts: list["CaseStudy"]):
     mui = MainUI(
-        900, 100,
+        900, 300,
         sub_ts
     )
 
