@@ -1,8 +1,11 @@
 from time import sleep
 from self_healing_visualizer.devices_interface.mainUI import MainUI
-from self_healing_visualizer.case_study3 import *
+from self_healing_visualizer.case_study2 import *
 from self_healing_visualizer.util.global_clock import GlobalClock
 
+def update(mui, delay):
+    mui.run()
+    sleep(delay)
 
 def run_UI(sub_ts: list["CaseStudy"]):
     mui = MainUI(
@@ -11,25 +14,18 @@ def run_UI(sub_ts: list["CaseStudy"]):
     )
 
     mui.run()
-    fns = []
-    while(fns != [] or GlobalClock.next_batch != []):
-        for fn in fns:
-            fn()
-        fns = GlobalClock.roll_next_batch()
+    for wave in sub_ts[0].faulty_wires_waves:
+        GlobalClock.run_all_batches(
+            lambda gc: update(mui, 1)
+        )
         mui.run()
         sleep(1)
-
-    sleep(1)
-    mui.run()
-    sub_ts[0].matrix[0][3].fault(None)
-    fns = []
-    mui.run()
-    sleep(1)
-
-    while(fns != [] or GlobalClock.next_batch != []):
-        for fn in fns:
-            fn()
-        fns = GlobalClock.roll_next_batch()
+        for faulty_wire in wave:
+            y,x = faulty_wire
+            sub_ts[0].matrix[y][x].fault(None)
+        GlobalClock.run_all_batches(
+            lambda gc: update(mui, 1)
+        )
         mui.run()
         sleep(1)
     while(1):

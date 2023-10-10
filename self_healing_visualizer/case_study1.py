@@ -40,6 +40,8 @@ class CaseStudy:
             dt=0
         )(1, 0, self.matrix[0][0], self.matrix[0][0])
 
-        self.faulty_wire = []
+        self.faulty_wires_waves: list[list[int, int]] = [
+            [[0, 5]]
+        ]
     
     

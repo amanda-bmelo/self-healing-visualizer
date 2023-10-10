@@ -34,6 +34,16 @@ class GlobalClock:
         return cls.current_batch
     
     @classmethod
+    def run_all_batches(cls, middleware):
+        fns = []
+        while(fns != [] or GlobalClock.next_batch != []):
+            for fn in fns:
+                fn()
+            fns = GlobalClock.roll_next_batch()
+            middleware(cls)
+
+
+    @classmethod
     def schedule(cls, fn, dt=0):
         def _fn(*args, **kw):
             GlobalClock.next_batch.append(Scheduler(fn, *args, t=GlobalClock.t + dt, **kw))
