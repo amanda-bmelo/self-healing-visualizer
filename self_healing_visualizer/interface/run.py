@@ -1,6 +1,6 @@
 from time import sleep
 from self_healing_visualizer.devices_interface.mainUI import MainUI
-from self_healing_visualizer.case_study1 import *
+from self_healing_visualizer.case_study3 import *
 from self_healing_visualizer.util.global_clock import GlobalClock
 
 

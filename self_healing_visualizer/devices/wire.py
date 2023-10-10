@@ -16,8 +16,8 @@ class Wire(GenericDevice):
     def observer(self, energy: bool, fault: bool, source: "GenericDevice", generator: "GenericDevice" = None):
         """Function to update the current state"""
         new_state = energy if not fault else StateEnum.FAULT
-        self.generator = generator
         if new_state != self.state:
+            self.generator = generator if energy else None
             self.state = new_state
             self.propagate(source, generator)
 

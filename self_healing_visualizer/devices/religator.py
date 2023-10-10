@@ -54,12 +54,18 @@ class Religator(GenericDevice):
                 self.source -= direction
             
     def update_state(self):
-        if (self.source == SourceEnum.BOTH or self.fault_detected > 0) and self.state != 1:
-            self.state = StateEnum.OPEN
-        elif self.source in [1,2] and self.fault_detected == SourceEnum.NONE and self.state == 1:
-            self.state = StateEnum.CLOSED
+        if (self.source == SourceEnum.BOTH or self.fault_detected > 0):
+            if self.state != StateEnum.OPEN:
+                self.state = StateEnum.OPEN
+        elif self.source in [1,2] and self.fault_detected == SourceEnum.NONE:
+            if self.state != StateEnum.CLOSED:
+                self.state = StateEnum.CLOSED
 
         self.propagate()
+        
+        if self.source == SourceEnum.NONE and self.fault_detected == SourceEnum.NONE:
+            if self.state != StateEnum.OPEN:
+                self.state = StateEnum.OPEN
 
     @GlobalClock.schedule
     def __propagate(self):
