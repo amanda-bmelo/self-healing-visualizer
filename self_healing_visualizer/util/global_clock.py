@@ -11,6 +11,9 @@ class Scheduler:
     def __call__(self) -> Any:
         self.fn(*self.args, **self.kw)
 
+    def __repr__(self) -> str:
+        return f"<{self.fn.__name__}[t={self.t - GlobalClock.t}]:>"
+
 class GlobalClock:
     t = 0
     current_batch = []
@@ -30,7 +33,8 @@ class GlobalClock:
         cls.next_batch = nb
         return cls.current_batch
     
-    def schedule(fn, dt=0):
+    @classmethod
+    def schedule(cls, fn, dt=0):
         def _fn(*args, **kw):
             GlobalClock.next_batch.append(Scheduler(fn, *args, t=GlobalClock.t + dt, **kw))
         return _fn

@@ -25,7 +25,7 @@ class GenericDevice:
         """Function to set a fault on the device"""
         raise NotImplementedError()
     
-    @GlobalClock.schedule
+    # @GlobalClock.schedule
     def propagate(self, _except: "GenericDevice"):
         """Function to propagate the state of the device"""
         raise NotImplementedError()

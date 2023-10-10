@@ -23,38 +23,40 @@ class Religator(GenericDevice):
         fault_detected = ['None', "Left", "Right", "Both"][self.fault_detected]
 
         return f"<Religator[{self.id}]: ({state}, {source}, {fault_detected})>"
-
+    
     def observer(self, energy: bool, fault: bool, source: Wire):
+        self._observer(energy, fault, source)
+        if self.state == StateEnum.CLOSED:
+            self.update_state()
+        else:
+            GlobalClock.schedule(self.update_state)()
+
+    def _observer(self, energy: bool, fault: bool, source: Wire):
         """Function to update the current state"""
 
-        was_updated = False
         direction = self.connections.index(source) + 1
         if fault:
             if self.fault_detected != direction and self.fault_detected != SourceEnum.BOTH:
                 self.fault_detected += direction
-                was_updated = True
         
         if energy:
             if self.source != direction and self.source != SourceEnum.BOTH:
                 self.source += direction
-                was_updated = True
         else:
             if self.source == direction or self.source == SourceEnum.BOTH:
                 self.source -= direction
-                was_updated = True
             
-
+    def update_state(self):
         if (self.source == SourceEnum.BOTH or self.fault_detected > 0) and self.state != 1:
             self.state = StateEnum.OPEN
-            was_updated = True
         elif self.source in [1,2] and self.fault_detected == SourceEnum.NONE and self.state == 1:
             self.state = StateEnum.CLOSED
-            was_updated = True
 
-        if was_updated:
-            self.propagate()
+        self.propagate()
 
     @GlobalClock.schedule
+    def __propagate(self):
+        return self.propagate()
     def propagate(self):
         """Function to propagate the state of the religator"""
 

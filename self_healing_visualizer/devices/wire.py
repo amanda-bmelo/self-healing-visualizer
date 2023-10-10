@@ -23,7 +23,6 @@ class Wire(GenericDevice):
         self.state = StateEnum.FAULT
         self.propagate(_from)
 
-    @GlobalClock.schedule
     def propagate(self, _except: GenericDevice):
         """Function to propagate the state of the wire"""
 
